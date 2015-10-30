@@ -1,0 +1,2 @@
+class NoAnswerError < StandardError
+end

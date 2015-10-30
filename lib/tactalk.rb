@@ -11,6 +11,8 @@ require 'uri'
 require 'json'
 require 'sanitize'
 
+require 'exceptions'
+
 class TacTalk
 
   def initialize
@@ -33,6 +35,9 @@ class TacTalk
 
   def ask question
     doc = @questions.fuzzy_find(:question => question)
+
+    # Guard to protect error when no result is found.
+    raise NoAnswerError if doc.nil?
 
     return doc["answer"] if doc["method"].nil?
 
